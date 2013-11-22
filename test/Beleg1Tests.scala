@@ -12,6 +12,18 @@ import org.scalacheck.Properties
 @RunWith(classOf[JUnitRunner])
 class Beleg1Tests extends Properties("IntSet") with FunSuite {
 
+  test("balance: '(if (zero? x) max (/ 1 x))' is balanced") {
+    assert(Klammerung.balance("(if (zero? x) max (/ 1 x))".toList))
+  }
+
+  test("balance: 'I told him ...' is balanced") {
+    assert(Klammerung.balance("I told him (that it's not (yet) done).\n(But he wasn't listening)".toList))
+  }
+
+  test("balance: ':-)' is unbalanced") {
+    assert(!Klammerung.balance(":-)".toList))
+  }
+  
   test("Klammerung leere Liste"){
     
     val result=Klammerung.balance(List())
